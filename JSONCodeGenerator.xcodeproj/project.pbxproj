@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8D8A6C5F3C7020215008C8BC /* String+Addictions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8A6457C829CDAEABF3BEDD /* String+Addictions.swift */; };
 		C040596D1F99EBF0004821A4 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C040596C1F99EBF0004821A4 /* main.swift */; };
+		C04059761F99EF68004821A4 /* translations.json in Resources */ = {isa = PBXBuildFile; fileRef = C04059731F99EF25004821A4 /* translations.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -23,8 +25,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8D8A6457C829CDAEABF3BEDD /* String+Addictions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Addictions.swift"; sourceTree = "<group>"; };
 		C04059691F99EBF0004821A4 /* JSONCodeGenerator */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = JSONCodeGenerator; sourceTree = BUILT_PRODUCTS_DIR; };
 		C040596C1F99EBF0004821A4 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		C04059731F99EF25004821A4 /* translations.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = translations.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,7 +61,9 @@
 		C040596B1F99EBF0004821A4 /* JSONCodeGenerator */ = {
 			isa = PBXGroup;
 			children = (
+				C04059731F99EF25004821A4 /* translations.json */,
 				C040596C1F99EBF0004821A4 /* main.swift */,
+				8D8A6457C829CDAEABF3BEDD /* String+Addictions.swift */,
 			);
 			path = JSONCodeGenerator;
 			sourceTree = "<group>";
@@ -72,6 +78,7 @@
 				C04059651F99EBF0004821A4 /* Sources */,
 				C04059661F99EBF0004821A4 /* Frameworks */,
 				C04059671F99EBF0004821A4 /* CopyFiles */,
+				C04059741F99EF33004821A4 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -115,12 +122,24 @@
 		};
 /* End PBXProject section */
 
+/* Begin PBXResourcesBuildPhase section */
+		C04059741F99EF33004821A4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C04059761F99EF68004821A4 /* translations.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		C04059651F99EBF0004821A4 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				C040596D1F99EBF0004821A4 /* main.swift in Sources */,
+				8D8A6C5F3C7020215008C8BC /* String+Addictions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
