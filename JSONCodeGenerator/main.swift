@@ -37,7 +37,7 @@ struct TranslationKey {
     let name: String
 
     var translationKey: String {
-        let name = self.name.lowercasedFirstLetter()
+        let name = self.name.lowercasedFirstLetter().replacingOccurrences(of: "-", with: "")
 
         guard let idx = name.index(of: TranslationKey.subEnumKeySeparator) else { return name }
 
@@ -58,12 +58,12 @@ struct TranslationKey {
             tabsString += oneTab
         }
 
-        return "\(tabsString)static let \(translationKey) = Translations.Key(\"\(key)\")"
+        return "\(tabsString)static let \(translationKey) = TranslationKey(\"\(key)\")"
     }
 
     init(_ key: String) {
         self.key = key
-        name = key.lowercased().characters
+        name = key.lowercased()
                 .split(separator: "_")
                 .map(String.init)
                 .map { $0.capitalizingFirstLetter() }
@@ -88,7 +88,18 @@ keys.forEach { key in
 
 var text = [String]()
 
-text.append("extension Translations.Key {")
+text .append(
+    """
+struct TranslationKey2 {
+    let key: String
+
+    init(_ key: String) {
+        self.key = key
+    }
+}
+""")
+
+text.append("enum TranslationsKeys {")
 
 lines["AlbertGenerated"]?.forEach {
     text.append($0.line(withNumberOfTabs: 1))

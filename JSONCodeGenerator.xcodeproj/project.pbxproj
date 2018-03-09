@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		57D20C912052D817001EBA2C /* TranslationJSON.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D20C902052D817001EBA2C /* TranslationJSON.generated.swift */; };
 		8D8A6C5F3C7020215008C8BC /* String+Addictions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8A6457C829CDAEABF3BEDD /* String+Addictions.swift */; };
 		C040596D1F99EBF0004821A4 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C040596C1F99EBF0004821A4 /* main.swift */; };
 		C04059761F99EF68004821A4 /* translations.json in Resources */ = {isa = PBXBuildFile; fileRef = C04059731F99EF25004821A4 /* translations.json */; };
@@ -25,6 +26,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		57D20C902052D817001EBA2C /* TranslationJSON.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TranslationJSON.generated.swift; sourceTree = "<group>"; };
 		8D8A6457C829CDAEABF3BEDD /* String+Addictions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Addictions.swift"; sourceTree = "<group>"; };
 		C04059691F99EBF0004821A4 /* JSONCodeGenerator */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = JSONCodeGenerator; sourceTree = BUILT_PRODUCTS_DIR; };
 		C040596C1F99EBF0004821A4 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
@@ -45,6 +47,7 @@
 		C04059601F99EBF0004821A4 = {
 			isa = PBXGroup;
 			children = (
+				57D20C902052D817001EBA2C /* TranslationJSON.generated.swift */,
 				C040596B1F99EBF0004821A4 /* JSONCodeGenerator */,
 				C040596A1F99EBF0004821A4 /* Products */,
 			);
@@ -140,6 +143,7 @@
 			files = (
 				C040596D1F99EBF0004821A4 /* main.swift in Sources */,
 				8D8A6C5F3C7020215008C8BC /* String+Addictions.swift in Sources */,
+				57D20C912052D817001EBA2C /* TranslationJSON.generated.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -256,7 +260,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = S462JSAM8X;
+				DEVELOPMENT_TEAM = 9HV33D42XM;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 			};
@@ -266,7 +270,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = S462JSAM8X;
+				DEVELOPMENT_TEAM = 9HV33D42XM;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 			};
