@@ -28,19 +28,33 @@ struct TranslationKey {
 }
 """
 
+struct TranslationKey {
+    let key: String
+    
+    init(_ key: String) {
+        self.key = key
+    }
+}
+
+struct TranslationNode {
+    var subNodes = [TranslationNode]()
+}
+
 var rootFolder = [String: Any]()
 
 let separate = "CONTACT_FORM_EU_VAT_NUMBER_FIELD_TITLE-ASD".components(separatedBy: ["_"])
+print(separate)
 
-texts.forEach { key, _ in
-    let paths = key.components(separatedBy: ["_"])
-}
+//texts.forEach { key, _ in
+//    let paths = key.components(separatedBy: ["_"])
+//}
 
-func putSubFolder(paths: [String], folder: [String: Any]) {
-    paths.forEach { path in
-        if let existedPath = folder[path] {
-        } else {
-            folder[path] = [String: Any]()
-        }
-    }
-}
+//func putSubFolder(paths: [String], folder: [String: Any]) {
+//    paths.forEach { path in
+//        if let existedPath = folder[path] {
+//        } else {
+//            folder[path] = [String: Any]()
+//        }
+//    }
+//}
+

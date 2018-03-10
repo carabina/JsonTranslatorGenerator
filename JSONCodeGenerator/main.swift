@@ -35,6 +35,7 @@ struct TranslationKey {
     static private let subEnumKeySeparator = Character("|")
     let key: String
     let name: String
+    var parameters: Set<String>
 
     var translationKey: String {
         let name = self.name.lowercasedFirstLetter().replacingOccurrences(of: "-", with: "")
@@ -58,20 +59,33 @@ struct TranslationKey {
             tabsString += oneTab
         }
 
-        return "\(tabsString)static let \(translationKey) = TranslationKey(\"\(key)\")"
+        return "\(tabsString)static let \(translationKey) = \"\(key)\""
     }
 
-    init(_ key: String) {
+    init(_ key: String, _ translations: Any) {
         self.key = key
+        self.parameters = Set()
+        if let trsnalationsMap = translations as? [String: Any] {
+            if let translation = trsnalationsMap.first?.value as? String {
+                if let start = translation.range(of: "["), let end = translation.range(of: "]") {
+                    let startIndex = start.upperBound
+                    let endIndex = end.lowerBound
+                    let parameter = translation[startIndex..<endIndex]
+                    self.parameters.insert(String(parameter))
+                }
+            }
+        }
+        
         name = key.lowercased()
                 .split(separator: "_")
                 .map(String.init)
                 .map { $0.capitalizingFirstLetter() }
                 .joined()
+        
     }
 }
 
-let keys = texts.keys.map { TranslationKey($0) }
+let keys = texts.map { TranslationKey($0, $1) }
 var lines = [String: [TranslationKey]]()
 
 lines["AlbertGenerated"] = [TranslationKey]()
@@ -87,17 +101,6 @@ keys.forEach { key in
 }
 
 var text = [String]()
-
-text .append(
-    """
-struct TranslationKey2 {
-    let key: String
-
-    init(_ key: String) {
-        self.key = key
-    }
-}
-""")
 
 text.append("enum TranslationsKeys {")
 
