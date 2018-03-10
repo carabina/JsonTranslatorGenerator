@@ -151,7 +151,7 @@ text.append("extension TranslationParameter {")
 lines["AlbertGenerated"]?.forEach {
     let t = $0
     if t.parameters.count > 0 {
-        var strParameter = "   func \(t.name)("
+        var strParameter = "   func \(t.name.lowercasedFirstLetter())("
         let parameters = Array(t.parameters)
         for i in 0..<parameters.count {
             let parameter = parameters[i]
@@ -162,7 +162,7 @@ lines["AlbertGenerated"]?.forEach {
                 .map { $0.capitalizingFirstLetter() }
                 .joined()
                 .lowercasedFirstLetter().replacingOccurrences(of: "-", with: "")
-            strParameter += "_ \(funcParameter): String"
+            strParameter += "\(funcParameter): String"
             
             if i < parameters.count - 1 {
                 strParameter += ", "
