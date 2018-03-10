@@ -128,17 +128,11 @@ text.append("// swiftlint:disable identifier_name")
 
 text.append("enum TranslationsKey: String {")
 
-lines["AlbertGenerated"]?.forEach {
-    text.append($0.line(withNumberOfTabs: 1))
+lines["AlbertGenerated"]?.map {
+    $0.line(withNumberOfTabs: 1)
+    }.sorted(by: { $0.count < $1.count }).forEach {
+    text.append($0)
 }
-
-//lines["AlbertGenerated"] = nil
-//
-//for (translationKey, translations) in lines {
-//    text.append("    enum \(translationKey) {")
-//    translations.forEach { text.append($0.line(withNumberOfTabs: 2)) }
-//    text.append("    }")
-//}
 
 text.append("}\n")
 
