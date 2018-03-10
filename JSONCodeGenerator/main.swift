@@ -61,20 +61,24 @@ struct TranslationKey {
 
         return "\(tabsString)static let \(translationKey) = \"\(key)\""
     }
+    
+    func extractParameter(str: String, startOut: inout Int) -> String? {
+        let subStr = String(str[str.index(str.startIndex, offsetBy: startOut)..<str.endIndex])
+        if let start = subStr.range(of: "["), let end = subStr.range(of: "]") {
+            let startIndex = start.upperBound
+            let endIndex = end.lowerBound
+            let parameter = subStr[startIndex..<endIndex]
+            
+            startOut = startOut + Int(endIndex.encodedOffset) + 1
+            return String(parameter)
+        }
+        
+        return nil
+    }
 
     init(_ key: String, _ translations: Any) {
         self.key = key
         self.parameters = Set()
-        if let trsnalationsMap = translations as? [String: Any] {
-            if let translation = trsnalationsMap.first?.value as? String {
-                if let start = translation.range(of: "["), let end = translation.range(of: "]") {
-                    let startIndex = start.upperBound
-                    let endIndex = end.lowerBound
-                    let parameter = translation[startIndex..<endIndex]
-                    self.parameters.insert(String(parameter))
-                }
-            }
-        }
         
         name = key.lowercased()
                 .split(separator: "_")
@@ -82,6 +86,20 @@ struct TranslationKey {
                 .map { $0.capitalizingFirstLetter() }
                 .joined()
         
+        if let trsnalationsMap = translations as? [String: Any] {
+            if let translation = trsnalationsMap.first?.value as? String {
+                var start = 0
+                while let parameter = self.extractParameter(str: translation, startOut: &start) {
+                    self.parameters.insert(String(parameter))
+                }
+                //                if let start = translation.range(of: "["), let end = translation.range(of: "]") {
+                //                    let startIndex = start.upperBound
+                //                    let endIndex = end.lowerBound
+                //                    let parameter = translation[startIndex..<endIndex]
+                //                    self.parameters.insert(String(parameter))
+                //                }
+            }
+        }
     }
 }
 
@@ -108,14 +126,71 @@ lines["AlbertGenerated"]?.forEach {
     text.append($0.line(withNumberOfTabs: 1))
 }
 
-lines["AlbertGenerated"] = nil
+//lines["AlbertGenerated"] = nil
+//
+//for (translationKey, translations) in lines {
+//    text.append("    enum \(translationKey) {")
+//    translations.forEach { text.append($0.line(withNumberOfTabs: 2)) }
+//    text.append("    }")
+//}
 
-for (translationKey, translations) in lines {
-    text.append("    enum \(translationKey) {")
-    translations.forEach { text.append($0.line(withNumberOfTabs: 2)) }
-    text.append("    }")
+text.append("}\n")
+
+text.append("""
+protocol TranslationParameter {
+    func translation(for key: String, parameters: [String: String]) -> String
 }
 
+"""
+)
+
+text.append("extension TranslationParameter {")
+lines["AlbertGenerated"]?.forEach {
+    let t = $0
+    if t.parameters.count > 0 {
+        var strParameter = "   func \(t.name)("
+        let parameters = Array(t.parameters)
+        for i in 0..<parameters.count {
+            let parameter = parameters[i]
+            
+            let funcParameter = parameter.lowercased()
+                .split(separator: "_")
+                .map(String.init)
+                .map { $0.capitalizingFirstLetter() }
+                .joined()
+                .lowercasedFirstLetter().replacingOccurrences(of: "-", with: "")
+            strParameter += "_ \(funcParameter): String"
+            
+            if i < parameters.count - 1 {
+                strParameter += ", "
+            }
+        }
+        
+        strParameter += ") -> String {\n"
+        strParameter += "       let parameters = [\n"
+        
+        for i in 0..<parameters.count {
+            let parameter = parameters[i]
+            let funcParameter = parameter.lowercased()
+                .split(separator: "_")
+                .map(String.init)
+                .map { $0.capitalizingFirstLetter() }
+                .joined()
+                .lowercasedFirstLetter().replacingOccurrences(of: "-", with: "")
+            strParameter += "           \(funcParameter): \"\(parameter)\""
+            
+            if i < parameters.count - 1 {
+                strParameter += ","
+            }
+            strParameter += "\n"
+        }
+        
+        strParameter += "       ]\n"
+        strParameter += "       return translation(for: \"\(t.key)\", parameters: parameters)\n"
+        strParameter += "   }\n"
+        text.append(strParameter)
+    }
+}
 text.append("}")
 
 let joined = text.joined(separator: "\n")
