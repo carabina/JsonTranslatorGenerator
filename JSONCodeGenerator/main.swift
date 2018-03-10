@@ -162,7 +162,7 @@ lines["AlbertGenerated"]?.forEach {
         
         strParameter += parameters.map{ parameter in
             let funcParameter = t.name(for: parameter)
-            return "           \(funcParameter): \"\(parameter)\""
+            return "           \"\(parameter)\": \(funcParameter)"
             
             }.joined(separator: ", \n")
         strParameter += "\n"
