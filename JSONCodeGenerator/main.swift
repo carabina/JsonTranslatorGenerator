@@ -120,6 +120,9 @@ keys.forEach { key in
 
 var text = [String]()
 
+text.append("// swiftlint:disable type_body_length")
+text.append("// swiftlint:disable identifier_name")
+
 text.append("enum TranslationsKeys {")
 
 lines["AlbertGenerated"]?.forEach {
@@ -192,6 +195,8 @@ lines["AlbertGenerated"]?.forEach {
     }
 }
 text.append("}")
+text.append("// swiftlint:enable type_body_length")
+text.append("// swiftlint:enable identifier_name\n")
 
 let joined = text.joined(separator: "\n")
 
