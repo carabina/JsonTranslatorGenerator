@@ -59,7 +59,7 @@ struct TranslationKey {
             tabsString += oneTab
         }
 
-        return "\(tabsString)static let \(translationKey) = \"\(key)\""
+        return "\(tabsString)case \(translationKey) = \"\(key)\""
     }
     
     func extractParameter(str: String, startOut: inout Int) -> String? {
@@ -126,7 +126,7 @@ var text = [String]()
 text.append("// swiftlint:disable type_body_length")
 text.append("// swiftlint:disable identifier_name")
 
-text.append("enum TranslationsKeys {")
+text.append("enum TranslationsKey: String {")
 
 lines["AlbertGenerated"]?.forEach {
     text.append($0.line(withNumberOfTabs: 1))
@@ -144,7 +144,7 @@ text.append("}\n")
 
 text.append("""
 protocol TranslationParameter {
-    func translation(for key: String, parameters: [String: String]) -> String
+    func translation(for key: TranslationsKey, parameters: [String: String]) -> String
 }
 
 """
@@ -161,7 +161,7 @@ lines["AlbertGenerated"]?.forEach {
             let funcParameter = t.name(for: parameter)
             return "\(funcParameter): String"
             
-            }.joined(separator: ",")
+            }.joined(separator: ", ")
         
         strParameter += ") -> String {\n"
         strParameter += "       let parameters = [\n"
@@ -170,11 +170,11 @@ lines["AlbertGenerated"]?.forEach {
             let funcParameter = t.name(for: parameter)
             return "           \(funcParameter): \"\(parameter)\""
             
-            }.joined(separator: ",\n")
+            }.joined(separator: ", \n")
         strParameter += "\n"
         
         strParameter += "       ]\n"
-        strParameter += "       return translation(for: \"\(t.key)\", parameters: parameters)\n"
+        strParameter += "       return translation(for: .\(t.translationKey), parameters: parameters)\n"
         strParameter += "   }\n"
         text.append(strParameter)
     }
