@@ -137,14 +137,14 @@ lines["AlbertGenerated"]?.map {
 text.append("}\n")
 
 text.append("""
-protocol TranslationParameter {
+protocol TranslationWithParameters {
     func translation(for key: TranslationsKey, parameters: [String: String]) -> String
 }
 
 """
 )
 
-text.append("extension TranslationParameter {")
+text.append("extension TranslationWithParameters {")
 lines["AlbertGenerated"]?.forEach {
     let t = $0
     if t.parameters.count > 0 {
